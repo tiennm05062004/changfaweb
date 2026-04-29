@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react"
 import { MapPin } from "lucide-react"
+import { useLocale } from "@/components/locale-provider"
+import { Locale } from "@/lib/i18n"
 
 interface Location {
   lat: number
@@ -16,7 +18,47 @@ interface GoogleMapProps {
   zoom?: number
 }
 
+const mapCopy: Record<Locale, { apiKeyMissing: string; mapLoadFailed: string; ourLocation: string; viewOnMap: string; mapTitle: string }> = {
+  vi: {
+    apiKeyMissing: "Google Maps API key không được cấu hình",
+    mapLoadFailed: "Không thể tải Google Maps",
+    ourLocation: "Vị Trí Của Chúng Tôi",
+    viewOnMap: "Xem trên Google Maps",
+    mapTitle: "Bản đồ",
+  },
+  en: {
+    apiKeyMissing: "Google Maps API key is not configured",
+    mapLoadFailed: "Unable to load Google Maps",
+    ourLocation: "Our Locations",
+    viewOnMap: "View on Google Maps",
+    mapTitle: "Map",
+  },
+  zh: {
+    apiKeyMissing: "未配置 Google Maps API key",
+    mapLoadFailed: "无法加载 Google Maps",
+    ourLocation: "我们的位置",
+    viewOnMap: "在 Google 地图中查看",
+    mapTitle: "地图",
+  },
+  ja: {
+    apiKeyMissing: "Google Maps API キーが未設定です",
+    mapLoadFailed: "Google Maps を読み込めません",
+    ourLocation: "所在地",
+    viewOnMap: "Google Maps で見る",
+    mapTitle: "地図",
+  },
+  ko: {
+    apiKeyMissing: "Google Maps API 키가 설정되지 않았습니다",
+    mapLoadFailed: "Google Maps를 불러올 수 없습니다",
+    ourLocation: "위치 안내",
+    viewOnMap: "Google 지도에서 보기",
+    mapTitle: "지도",
+  },
+}
+
 export function GoogleMap({ locations, height = "400px", zoom = 12 }: GoogleMapProps) {
+  const { locale } = useLocale()
+  const t = mapCopy[locale]
   const mapRef = useRef<HTMLDivElement>(null)
   const [mapLoaded, setMapLoaded] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -31,7 +73,7 @@ export function GoogleMap({ locations, height = "400px", zoom = 12 }: GoogleMapP
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
 
     if (!apiKey) {
-      setError("Google Maps API key không được cấu hình")
+      setError(t.apiKeyMissing)
       return
     }
 
@@ -41,7 +83,7 @@ export function GoogleMap({ locations, height = "400px", zoom = 12 }: GoogleMapP
     script.async = true
     script.defer = true
     script.onload = () => setMapLoaded(true)
-    script.onerror = () => setError("Không thể tải Google Maps")
+    script.onerror = () => setError(t.mapLoadFailed)
     document.head.appendChild(script)
 
     return () => {
@@ -51,7 +93,7 @@ export function GoogleMap({ locations, height = "400px", zoom = 12 }: GoogleMapP
         existingScript.remove()
       }
     }
-  }, [])
+  }, [t.apiKeyMissing, t.mapLoadFailed])
 
   useEffect(() => {
     if (!mapLoaded || !mapRef.current || !window.google?.maps) return
@@ -133,7 +175,7 @@ export function GoogleMap({ locations, height = "400px", zoom = 12 }: GoogleMapP
       >
         <MapPin className="h-12 w-12 text-primary" />
         <div className="text-center px-4">
-          <h4 className="font-semibold text-foreground mb-2">Vị Trí Của Chúng Tôi</h4>
+          <h4 className="font-semibold text-foreground mb-2">{t.ourLocation}</h4>
           <div className="space-y-2">
             {locations.map((location, index) => (
               <div key={index} className="text-sm text-muted-foreground">
@@ -149,7 +191,7 @@ export function GoogleMap({ locations, height = "400px", zoom = 12 }: GoogleMapP
             rel="noopener noreferrer"
             className="inline-block mt-4 text-primary hover:underline text-sm"
           >
-            Xem trên Google Maps
+            {t.viewOnMap}
           </a>
         </div>
       </div>
@@ -173,6 +215,8 @@ export function GoogleMapEmbed({
   locations: Location[], 
   height?: string 
 }) {
+  const { locale } = useLocale()
+  const t = mapCopy[locale]
   const [activeLocation, setActiveLocation] = useState(0)
   const location = locations[activeLocation]
   
@@ -211,7 +255,7 @@ export function GoogleMapEmbed({
         allowFullScreen
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-        title={`Bản đồ ${location.title}`}
+        title={`${t.mapTitle} ${location.title}`}
       />
     </div>
   )

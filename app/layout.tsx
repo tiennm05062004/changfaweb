@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { LocaleProvider } from "@/components/locale-provider"
 import { ScrollReveal } from '@/components/scroll-reveal'
 import './globals.css'
 
@@ -32,9 +33,11 @@ export default function RootLayout({
   return (
     <html lang="vi">
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
-        <ScrollReveal />
-        {children}
-        <Analytics />
+        <LocaleProvider>
+          <ScrollReveal />
+          {children}
+          <Analytics />
+        </LocaleProvider>
       </body>
     </html>
   )

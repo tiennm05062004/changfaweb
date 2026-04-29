@@ -12,30 +12,90 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { productCategories } from "@/lib/products-data"
+import { LanguageSwitcher } from "@/components/language-switcher"
+import { useLocale } from "@/components/locale-provider"
+import { getLocalizedProductCategories } from "@/lib/localized-products"
+import { Locale, withLocale } from "@/lib/i18n"
 
-const navItems = [
-  { name: "Trang Chủ", href: "/" },
-  { name: "Giới Thiệu", href: "/gioi-thieu" },
-  { 
-    name: "Sản Phẩm", 
-    href: "/san-pham",
-    children: productCategories.map(cat => ({
-      name: cat.name,
-      href: `/san-pham/danh-muc/${cat.slug}`
-    }))
+const navLabels: Record<Locale, { home: string; about: string; products: string; services: string; contact: string; allProducts: string; contactNow: string; slogan: string }> = {
+  vi: {
+    home: "Trang Chủ",
+    about: "Giới Thiệu",
+    products: "Sản Phẩm",
+    services: "Dịch Vụ",
+    contact: "Liên Hệ",
+    allProducts: "Tất Cả Sản Phẩm",
+    contactNow: "Liên Hệ Ngay",
+    slogan: "Thép Chất Lượng - Uy Tín Hàng Đầu",
   },
-  { name: "Dịch Vụ", href: "/dich-vu" },
-  { name: "Liên Hệ", href: "/lien-he" },
-]
+  en: {
+    home: "Home",
+    about: "About",
+    products: "Products",
+    services: "Services",
+    contact: "Contact",
+    allProducts: "All Products",
+    contactNow: "Contact Now",
+    slogan: "Quality Steel - Trusted Partner",
+  },
+  zh: {
+    home: "首页",
+    about: "关于我们",
+    products: "产品",
+    services: "服务",
+    contact: "联系我们",
+    allProducts: "全部产品",
+    contactNow: "立即联系",
+    slogan: "高品质钢材 - 值得信赖",
+  },
+  ja: {
+    home: "ホーム",
+    about: "会社概要",
+    products: "製品",
+    services: "サービス",
+    contact: "お問い合わせ",
+    allProducts: "すべての製品",
+    contactNow: "今すぐ連絡",
+    slogan: "高品質鋼材 - 信頼のパートナー",
+  },
+  ko: {
+    home: "홈",
+    about: "회사소개",
+    products: "제품",
+    services: "서비스",
+    contact: "문의",
+    allProducts: "전체 제품",
+    contactNow: "지금 문의",
+    slogan: "고품질 강재 - 신뢰 파트너",
+  },
+}
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
+  const { locale: currentLocale } = useLocale()
+  const t = navLabels[currentLocale]
+  const navItems = [
+    { key: "home", href: "/" },
+    { key: "about", href: "/gioi-thieu" },
+    {
+      key: "products",
+      href: "/san-pham",
+      children: getLocalizedProductCategories(currentLocale).map((cat) => ({
+        name: cat.name,
+        href: `/san-pham/danh-muc/${cat.slug}`,
+      })),
+    },
+    { key: "services", href: "/dich-vu" },
+    { key: "contact", href: "/lien-he" },
+  ]
 
   const isActive = (href: string) => {
-    if (href === "/") return pathname === "/"
-    return pathname.startsWith(href)
+    const localizedHref = withLocale(href, currentLocale)
+    if (href === "/") {
+      return pathname === localizedHref || pathname === "/"
+    }
+    return pathname.startsWith(localizedHref)
   }
 
   return (
@@ -53,14 +113,14 @@ export function Header() {
               <span className="hidden sm:inline">changfasteel@gmail.com</span>
             </a>
           </div>
-          <span className="text-xs opacity-80">Thép Chất Lượng - Uy Tín Hàng Đầu</span>
+          <span className="text-xs opacity-80">{t.slogan}</span>
         </div>
       </div>
       
       {/* Main navigation */}
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href={withLocale("/", currentLocale)} className="flex items-center gap-2">
             <Image
               src="/images/logo.jpg"
               alt="CHANGFA Steel"
@@ -79,22 +139,22 @@ export function Header() {
           <nav className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (
               item.children ? (
-                <DropdownMenu key={item.name}>
+                <DropdownMenu key={item.key}>
                   <DropdownMenuTrigger className={`flex items-center gap-1 font-medium transition-colors ${
                     isActive(item.href) ? "text-primary" : "text-muted-foreground hover:text-primary"
                   }`}>
-                    {item.name}
+                    {t[item.key as keyof typeof t]}
                     <ChevronDown className="h-4 w-4" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start" className="w-56">
                     <DropdownMenuItem asChild>
-                      <Link href={item.href} className="cursor-pointer font-medium">
-                        Tất Cả Sản Phẩm
+                      <Link href={withLocale(item.href, currentLocale)} className="cursor-pointer font-medium">
+                        {t.allProducts}
                       </Link>
                     </DropdownMenuItem>
                     {item.children.map((child) => (
                       <DropdownMenuItem key={child.href} asChild>
-                        <Link href={child.href} className="cursor-pointer">
+                        <Link href={withLocale(child.href, currentLocale)} className="cursor-pointer">
                           {child.name}
                         </Link>
                       </DropdownMenuItem>
@@ -103,21 +163,22 @@ export function Header() {
                 </DropdownMenu>
               ) : (
                 <Link
-                  key={item.name}
-                  href={item.href}
+                  key={item.key}
+                  href={withLocale(item.href, currentLocale)}
                   className={`font-medium transition-colors ${
                     isActive(item.href) ? "text-primary" : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  {item.name}
+                  {t[item.key as keyof typeof t]}
                 </Link>
               )
             ))}
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
+            <LanguageSwitcher />
             <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
-              <Link href="/lien-he">Liên Hệ Ngay</Link>
+              <Link href={withLocale("/lien-he", currentLocale)}>{t.contactNow}</Link>
             </Button>
           </div>
 
@@ -136,22 +197,22 @@ export function Header() {
           <div className="md:hidden py-4 border-t border-border">
             <nav className="flex flex-col gap-2">
               {navItems.map((item) => (
-                <div key={item.name}>
+                <div key={item.key}>
                   <Link
-                    href={item.href}
+                    href={withLocale(item.href, currentLocale)}
                     onClick={() => setIsMenuOpen(false)}
                     className={`block py-2 font-medium transition-colors ${
                       isActive(item.href) ? "text-primary" : "text-muted-foreground hover:text-primary"
                     }`}
                   >
-                    {item.name}
+                    {t[item.key as keyof typeof t]}
                   </Link>
                   {item.children && (
                     <div className="pl-4 space-y-1">
                       {item.children.map((child) => (
                         <Link
                           key={child.href}
-                          href={child.href}
+                          href={withLocale(child.href, currentLocale)}
                           onClick={() => setIsMenuOpen(false)}
                           className="block py-1 text-sm text-muted-foreground hover:text-primary transition-colors"
                         >
@@ -162,12 +223,13 @@ export function Header() {
                   )}
                 </div>
               ))}
+              <LanguageSwitcher compact />
               <Button 
                 asChild
                 className="bg-accent text-accent-foreground hover:bg-accent/90 w-full mt-2"
               >
-                <Link href="/lien-he" onClick={() => setIsMenuOpen(false)}>
-                  Liên Hệ Ngay
+                <Link href={withLocale("/lien-he", currentLocale)} onClick={() => setIsMenuOpen(false)}>
+                  {t.contactNow}
                 </Link>
               </Button>
             </nav>
