@@ -15,14 +15,17 @@ import {
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { useLocale } from "@/components/locale-provider"
 import { getLocalizedProductCategories } from "@/lib/localized-products"
+import { getLocalizedServices } from "@/lib/services-data"
 import { Locale, withLocale } from "@/lib/i18n"
 
-const navLabels: Record<Locale, { home: string; about: string; products: string; services: string; contact: string; allProducts: string; contactNow: string; slogan: string }> = {
+const navLabels: Record<Locale, { home: string; about: string; products: string; services: string; news: string; careers: string; contact: string; allProducts: string; contactNow: string; slogan: string }> = {
   vi: {
     home: "Trang Chủ",
     about: "Giới Thiệu",
     products: "Sản Phẩm",
     services: "Dịch Vụ",
+    news: "Tin tức",
+    careers: "Tuyển dụng",
     contact: "Liên Hệ",
     allProducts: "Tất Cả Sản Phẩm",
     contactNow: "Liên Hệ Ngay",
@@ -33,6 +36,8 @@ const navLabels: Record<Locale, { home: string; about: string; products: string;
     about: "About",
     products: "Products",
     services: "Services",
+    news: "News",
+    careers: "Careers",
     contact: "Contact",
     allProducts: "All Products",
     contactNow: "Contact Now",
@@ -43,6 +48,8 @@ const navLabels: Record<Locale, { home: string; about: string; products: string;
     about: "关于我们",
     products: "产品",
     services: "服务",
+    news: "新闻",
+    careers: "招聘",
     contact: "联系我们",
     allProducts: "全部产品",
     contactNow: "立即联系",
@@ -53,6 +60,8 @@ const navLabels: Record<Locale, { home: string; about: string; products: string;
     about: "会社概要",
     products: "製品",
     services: "サービス",
+    news: "ニュース",
+    careers: "採用",
     contact: "お問い合わせ",
     allProducts: "すべての製品",
     contactNow: "今すぐ連絡",
@@ -63,6 +72,8 @@ const navLabels: Record<Locale, { home: string; about: string; products: string;
     about: "회사소개",
     products: "제품",
     services: "서비스",
+    news: "뉴스",
+    careers: "채용",
     contact: "문의",
     allProducts: "전체 제품",
     contactNow: "지금 문의",
@@ -86,7 +97,16 @@ export function Header() {
         href: `/san-pham/danh-muc/${cat.slug}`,
       })),
     },
-    { key: "services", href: "/dich-vu" },
+    {
+      key: "services",
+      href: "/dich-vu",
+      children: getLocalizedServices(currentLocale).map((service) => ({
+        name: service.name,
+        href: `/dich-vu/${service.slug}`,
+      })),
+    },
+    { key: "news", href: "/tin-tuc" },
+    { key: "careers", href: "/tuyen-dung" },
     { key: "contact", href: "/lien-he" },
   ]
 
@@ -101,7 +121,7 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       {/* Top bar */}
-      <div className="bg-primary text-primary-foreground py-2 px-4">
+      <div className="bg-primary text-primary-foreground py-3.5 px-4">
         <div className="container mx-auto flex flex-wrap justify-between items-center text-sm gap-2">
           <div className="flex items-center gap-4">
             <a href="tel:0981063023" className="flex items-center gap-1 hover:text-accent transition-colors">
@@ -113,30 +133,30 @@ export function Header() {
               <span className="hidden sm:inline">changfasteel@gmail.com</span>
             </a>
           </div>
-          <span className="text-xs opacity-80">{t.slogan}</span>
+          <LanguageSwitcher />
         </div>
       </div>
       
       {/* Main navigation */}
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-24">
           <Link href={withLocale("/", currentLocale)} className="flex items-center gap-2">
             <Image
               src="/images/logo.jpg"
               alt="CHANGFA Steel"
-              width={140}
-              height={40}
-              className="h-9 w-auto object-contain"
+              width={160}
+              height={48}
+              className="h-13 w-auto object-contain"
               priority
             />
-            <span className="font-bold tracking-wide">
+            <span className="text-lg font-bold tracking-wide">
               <span className="text-red-600">CHANG</span>
               <span className="text-blue-600">FA</span>
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-7 text-base">
             {navItems.map((item) => (
               item.children ? (
                 <DropdownMenu key={item.key}>
@@ -175,8 +195,7 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-4">
-            <LanguageSwitcher />
+          <div className="hidden md:flex items-center gap-5">
             <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
               <Link href={withLocale("/lien-he", currentLocale)}>{t.contactNow}</Link>
             </Button>

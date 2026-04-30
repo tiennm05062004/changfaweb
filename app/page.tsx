@@ -249,24 +249,26 @@ export default function Home() {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+      <section className="relative pt-48 pb-24 md:pt-56 md:pb-32 min-h-[78vh] md:min-h-[86vh] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/hero-steel.jpg"
             alt={t.heroAlt}
             fill
-            className="object-cover"
+            className="object-cover object-center scale-110"
             priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" />
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-2xl">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-foreground mb-6 tracking-wide">
-              CHANGFA
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-extrabold mb-6 tracking-wide">
+              <span className="text-red-600">CHANG</span>
+              <span className="text-blue-600">FA</span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed text-pretty">
+            <p className="text-xl md:text-2xl text-muted-foreground mb-10 leading-relaxed text-pretty">
               {t.heroText}
             </p>
             <div className="flex flex-wrap gap-4">
@@ -288,7 +290,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-12 bg-primary text-primary-foreground" data-reveal>
+      <section className="mt-6 py-14 bg-primary text-primary-foreground" data-reveal>
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, index) => (

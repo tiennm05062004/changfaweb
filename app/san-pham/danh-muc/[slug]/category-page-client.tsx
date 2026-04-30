@@ -34,7 +34,7 @@ export function CategoryPageClient({ slug }: { slug: string }) {
   return (
     <main className="min-h-screen">
       <Header />
-      <section className="pt-32 pb-16 bg-primary text-primary-foreground relative overflow-hidden">
+      <section className="pt-40 pb-16 bg-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <Image src={category.image} alt={category.name} fill className="object-cover" />
         </div>

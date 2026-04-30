@@ -44,7 +44,7 @@ function getLocaleFromTimezone(timezone?: string): Locale | null {
 }
 
 function getInitialLocale(): Locale {
-  if (typeof window === "undefined") return "en"
+  if (typeof window === "undefined") return "vi"
 
   const saved = window.localStorage.getItem(STORAGE_KEY)
   if (saved && isSupportedLocale(saved)) return saved
@@ -66,7 +66,7 @@ function getInitialLocale(): Locale {
   const detectedFromTimezone = getLocaleFromTimezone(timezone)
   if (detectedFromTimezone) return detectedFromTimezone
 
-  return "en"
+  return "vi"
 }
 
 export function LocaleProvider({
@@ -106,7 +106,12 @@ export function LocaleProvider({
   )
 
   if (!isLocaleReady) {
-    return <div className="min-h-screen bg-background" />
+    return (
+      <div
+        className="min-h-screen bg-background bg-cover bg-center"
+        style={{ backgroundImage: "url('/images/hero-steel.jpg')" }}
+      />
+    )
   }
 
   return <LocaleContext.Provider value={value}>{children}</LocaleContext.Provider>

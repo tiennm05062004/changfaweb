@@ -253,7 +253,7 @@ export default function ContactPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-primary text-primary-foreground">
+      <section className="pt-40 pb-16 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <span className="text-accent font-medium text-sm uppercase tracking-wider">

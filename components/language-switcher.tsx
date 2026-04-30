@@ -1,14 +1,7 @@
 "use client"
 
-import { ChevronDown } from "lucide-react"
 import { Locale } from "@/lib/i18n"
 import { useLocale } from "@/components/locale-provider"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
 interface LanguageOption {
   locale: Locale
@@ -27,39 +20,24 @@ const languageOptions: LanguageOption[] = [
 export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
   const { locale, setLocale } = useLocale()
 
-  const currentLanguage =
-    languageOptions.find((option) => option.locale === locale) ?? languageOptions[0]
-
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger
-        translate="no"
-        className={`flex items-center gap-2 rounded-md border border-border text-sm text-muted-foreground hover:text-foreground transition-colors ${
-          compact ? "notranslate w-full justify-between px-3 py-2" : "notranslate px-3 py-2"
-        }`}
-      >
-        <span>{currentLanguage.flag}</span>
-        <span>{currentLanguage.label}</span>
-        <ChevronDown className="h-4 w-4" />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent
-        align={compact ? "start" : "end"}
-        className={compact ? "notranslate w-full min-w-[220px]" : "notranslate min-w-[220px]"}
-      >
-        {languageOptions.map((option) => (
-          <DropdownMenuItem
-            key={option.locale}
-            onClick={() => {
-              setLocale(option.locale)
-            }}
-            className="notranslate cursor-pointer"
-            translate="no"
-          >
-            <span className="mr-2">{option.flag}</span>
-            <span>{option.label}</span>
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className={`notranslate flex items-center ${compact ? "gap-2 py-2" : "gap-2"}`} translate="no">
+      {languageOptions.map((option) => (
+        <button
+          key={option.locale}
+          type="button"
+          onClick={() => setLocale(option.locale)}
+          className={`rounded-md border px-2.5 py-1.5 text-base leading-none transition-colors ${
+            locale === option.locale
+              ? "border-primary bg-primary/10"
+              : "border-border hover:bg-muted"
+          }`}
+          aria-label={option.label}
+          title={option.label}
+        >
+          {option.flag}
+        </button>
+      ))}
+    </div>
   )
 }

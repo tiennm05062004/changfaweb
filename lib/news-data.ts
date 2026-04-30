@@ -1,0 +1,185 @@
+import { Locale } from "@/lib/i18n"
+
+export interface NewsItem {
+  slug: string
+  image: string
+  date: string
+  translations: Record<Locale, {
+    title: string
+    summary: string
+    content: string[]
+    highlights: string[]
+  }>
+}
+
+export const newsPageCopy: Record<Locale, {
+  tag: string
+  title: string
+  desc: string
+  readMore: string
+  backToNews: string
+  relatedTitle: string
+}> = {
+  vi: {
+    tag: "Tin Tức",
+    title: "Cập Nhật Mới Nhất Từ CHANGFA",
+    desc: "Thông tin thị trường thép, hoạt động sản xuất và những cập nhật mới nhất từ CHANGFA Steel.",
+    readMore: "Xem chi tiết",
+    backToNews: "Quay lại Tin tức",
+    relatedTitle: "Bài viết liên quan",
+  },
+  en: {
+    tag: "News",
+    title: "Latest Updates From CHANGFA",
+    desc: "Market insights, production updates and the latest news from CHANGFA Steel.",
+    readMore: "Read more",
+    backToNews: "Back to News",
+    relatedTitle: "Related Articles",
+  },
+  zh: {
+    tag: "新闻",
+    title: "CHANGFA 最新资讯",
+    desc: "钢材市场动态、生产活动与 CHANGFA 最新消息。",
+    readMore: "查看详情",
+    backToNews: "返回新闻",
+    relatedTitle: "相关文章",
+  },
+  ja: {
+    tag: "ニュース",
+    title: "CHANGFA 最新情報",
+    desc: "鋼材市場の動向、生産活動、CHANGFA の最新アップデート。",
+    readMore: "詳細を見る",
+    backToNews: "ニュースへ戻る",
+    relatedTitle: "関連記事",
+  },
+  ko: {
+    tag: "뉴스",
+    title: "CHANGFA 최신 소식",
+    desc: "철강 시장 동향, 생산 활동 및 CHANGFA 최신 업데이트.",
+    readMore: "자세히 보기",
+    backToNews: "뉴스로 돌아가기",
+    relatedTitle: "관련 기사",
+  },
+}
+
+export const newsItems: NewsItem[] = [
+  {
+    slug: "xu-huong-vat-lieu-thep-2026",
+    image: "/images/steel-products.jpg",
+    date: "28/04/2026",
+    translations: {
+      vi: {
+        title: "Xu hướng vật liệu thép công nghiệp năm 2026",
+        summary: "Tổng quan nhu cầu thép khuôn, thép công cụ và giải pháp tối ưu chi phí vật liệu cho doanh nghiệp sản xuất.",
+        content: [
+          "Năm 2026, nhu cầu thép khuôn và thép công cụ tiếp tục tăng tại các doanh nghiệp sản xuất cơ khí chính xác, nhựa kỹ thuật và linh kiện công nghiệp. Các đơn vị có xu hướng ưu tiên vật liệu vừa đảm bảo độ bền làm việc, vừa có khả năng gia công tốt để rút ngắn vòng đời sản xuất.",
+          "Một điểm nổi bật là nhiều nhà máy đang chuyển sang chiến lược lựa chọn thép theo mục tiêu ứng dụng cụ thể thay vì chỉ theo giá. Cách làm này giúp tối ưu tổng chi phí sở hữu (TCO), giảm tần suất thay thế linh kiện và hạn chế lỗi sản phẩm trong quá trình vận hành.",
+          "Tại CHANGFA, chúng tôi tập trung tư vấn theo từng bài toán: điều kiện làm việc, tải trọng, nhiệt độ và chu kỳ bảo trì. Từ đó đề xuất nhóm mác thép và quy trình gia công phù hợp để doanh nghiệp cân bằng giữa hiệu suất, chất lượng và chi phí.",
+        ],
+        highlights: ["Ưu tiên vật liệu theo ứng dụng thực tế", "Tối ưu tổng chi phí vận hành thay vì chỉ giá mua", "Kết hợp chọn mác thép + quy trình gia công"],
+      },
+      en: {
+        title: "Industrial Steel Material Trends in 2026",
+        summary: "Overview of mold steel, tool steel demand and material cost optimization strategies for manufacturers.",
+        content: [
+          "In 2026, demand for mold steel and tool steel continues to rise across precision engineering, plastic molding and industrial components.",
+          "More factories are shifting from price-only selection to application-based material selection to optimize total cost of ownership.",
+          "At CHANGFA, we recommend steel grades based on operating conditions, load, heat and maintenance cycles to balance performance and cost.",
+        ],
+        highlights: ["Application-driven steel selection", "TCO optimization over purchase price", "Grade + process matching"],
+      },
+      zh: {
+        title: "2026 年工业钢材趋势",
+        summary: "模具钢与工具钢需求概览，以及制造企业降本提效方案。",
+        content: [
+          "2026 年，模具钢与工具钢在精密制造与工业零部件领域需求持续增长。",
+          "越来越多工厂从“只看单价”转向“按应用选材”，以优化总体使用成本。",
+          "CHANGFA 可根据工况、载荷、温度与维护周期提供钢种与加工方案建议。",
+        ],
+        highlights: ["按应用选材", "关注总拥有成本", "钢种与工艺协同优化"],
+      },
+      ja: {
+        title: "2026年の産業用鋼材トレンド",
+        summary: "金型鋼・工具鋼の需要動向とコスト最適化の考え方。",
+        content: [
+          "2026年は精密加工や産業部品分野で金型鋼・工具鋼の需要が拡大しています。",
+          "多くの工場が価格重視から用途重視の鋼種選定へ移行し、総コスト最適化を進めています。",
+          "CHANGFA は使用条件に合わせた鋼種と加工方法を提案します。",
+        ],
+        highlights: ["用途ベースの選定", "総コスト最適化", "鋼種と工程の最適化"],
+      },
+      ko: {
+        title: "2026 산업용 강재 트렌드",
+        summary: "금형강·공구강 수요와 제조기업의 비용 최적화 방향.",
+        content: [
+          "2026년에는 정밀가공 및 산업 부품 분야에서 금형강과 공구강 수요가 꾸준히 증가하고 있습니다.",
+          "많은 공장이 단가 중심에서 용도 중심의 강종 선택으로 전환하며 총운영비 최적화를 추진하고 있습니다.",
+          "CHANGFA는 사용 조건 기반의 강종 및 가공 방안을 제안합니다.",
+        ],
+        highlights: ["용도 기반 강종 선택", "총비용 최적화", "강종+공정 통합 설계"],
+      },
+    },
+  },
+  {
+    slug: "nang-cap-day-chuyen-gia-cong",
+    image: "/images/factory.jpg",
+    date: "20/04/2026",
+    translations: {
+      vi: {
+        title: "Nâng cấp dây chuyền gia công tại CHANGFA",
+        summary: "CHANGFA hoàn tất nâng cấp thiết bị gia công, tăng độ chính xác và rút ngắn thời gian đáp ứng đơn hàng.",
+        content: [
+          "CHANGFA đã hoàn thành giai đoạn nâng cấp hệ thống máy gia công nhằm đáp ứng tốt hơn các đơn hàng yêu cầu độ chính xác cao và thời gian giao hàng ngắn.",
+          "Việc nâng cấp giúp cải thiện độ ổn định trong quá trình sản xuất, đồng thời tăng năng lực xử lý các chi tiết có hình học phức tạp trong nhiều lĩnh vực.",
+          "Đây là bước đi chiến lược để nâng cao chất lượng dịch vụ gia công và khả năng đồng hành cùng khách hàng trong các dự án dài hạn.",
+        ],
+        highlights: ["Tăng độ chính xác gia công", "Rút ngắn thời gian xử lý đơn hàng", "Nâng năng lực cho chi tiết phức tạp"],
+      },
+      en: { title: "CHANGFA Upgrades Machining Line", summary: "New equipment improves precision and shortens lead time for customer orders.", content: ["CHANGFA completed a major machining line upgrade.", "The new setup increases stability and supports more complex part geometry.", "This investment strengthens long-term service capacity for customers."], highlights: ["Higher precision", "Shorter lead time", "Better complex-part capability"] },
+      zh: { title: "CHANGFA 完成加工产线升级", summary: "新设备提升加工精度并缩短交付周期。", content: ["CHANGFA 已完成关键加工产线升级。", "升级后可稳定处理更高精度与更复杂结构件。", "该投入将进一步提升长期服务能力。"], highlights: ["精度提升", "交期缩短", "复杂件能力增强"] },
+      ja: { title: "CHANGFA 加工ラインを更新", summary: "新設備導入により精度向上と納期短縮を実現。", content: ["CHANGFA は加工ラインの更新を完了しました。", "より高精度かつ複雑形状部品への対応力が向上。", "長期プロジェクトへの対応力をさらに強化します。"], highlights: ["精度向上", "納期短縮", "難形状対応力向上"] },
+      ko: { title: "CHANGFA 가공 라인 업그레이드", summary: "신규 설비 도입으로 정밀도 향상 및 납기 단축.", content: ["CHANGFA는 주요 가공 라인 업그레이드를 완료했습니다.", "업그레이드로 고정밀·복잡 형상 부품 대응력이 향상되었습니다.", "장기 프로젝트 대응 역량도 강화되었습니다."], highlights: ["정밀도 향상", "납기 단축", "복잡 형상 대응 강화"] },
+    },
+  },
+  {
+    slug: "huong-dan-chon-mac-thep",
+    image: "/images/die-steel.jpg",
+    date: "10/04/2026",
+    translations: {
+      vi: {
+        title: "Hướng dẫn chọn mác thép theo ứng dụng thực tế",
+        summary: "Các tiêu chí quan trọng khi chọn mác thép cho khuôn nhựa, khuôn dập nguội và chi tiết chịu tải cao.",
+        content: [
+          "Lựa chọn mác thép phù hợp là yếu tố quyết định đến tuổi thọ khuôn và hiệu suất sản xuất. Mỗi nhóm ứng dụng sẽ có tiêu chí ưu tiên khác nhau về độ cứng, độ dai, khả năng chống mài mòn và khả năng gia công.",
+          "Đối với khuôn nhựa, doanh nghiệp thường ưu tiên độ bóng bề mặt và khả năng chống ăn mòn. Với khuôn dập nguội, yếu tố quan trọng là độ cứng cao và ổn định kích thước sau nhiệt luyện.",
+          "CHANGFA khuyến nghị đánh giá vật liệu theo điều kiện sử dụng thực tế thay vì chỉ theo tiêu chuẩn danh nghĩa, từ đó giảm rủi ro và tối ưu vòng đời sản phẩm.",
+        ],
+        highlights: ["Xác định đúng tiêu chí theo ứng dụng", "Đánh giá sau nhiệt luyện", "Tối ưu tuổi thọ khuôn và chi tiết"],
+      },
+      en: { title: "How to Select Steel Grades by Application", summary: "Key criteria for selecting steel grades for molds and high-load components.", content: ["Steel grade selection directly affects tooling life and production efficiency.", "Each application should prioritize hardness, toughness, wear resistance and machinability differently.", "CHANGFA recommends application-condition-based evaluation to reduce risk and optimize lifecycle."], highlights: ["Application-first criteria", "Post-heat-treatment stability", "Longer tooling life"] },
+      zh: { title: "按应用选择钢材牌号指南", summary: "塑料模具、冷冲压与高载荷零件选材关键点。", content: ["钢材牌号选择直接影响模具寿命与生产效率。", "不同应用应优先考虑不同指标，如硬度、韧性、耐磨与可加工性。", "建议根据真实工况评估材料，降低风险并提升寿命。"], highlights: ["按应用定义指标", "关注热处理后稳定性", "提升寿命与可靠性"] },
+      ja: { title: "用途別鋼種選定ガイド", summary: "金型・高負荷部品向けの鋼種選定基準を紹介。", content: ["鋼種選定は金型寿命と生産性に直結します。", "用途に応じて硬さ・靭性・耐摩耗性・加工性の優先順位を設定することが重要です。", "実使用条件で評価することでリスク低減と寿命最適化が可能です。"], highlights: ["用途別基準設定", "熱処理後安定性", "寿命最適化"] },
+      ko: { title: "용도별 강종 선택 가이드", summary: "금형 및 고하중 부품에 적합한 강종 선택 기준.", content: ["강종 선택은 금형 수명과 생산성에 직접적인 영향을 줍니다.", "용도별로 경도·인성·내마모성·가공성의 우선순위를 달리해야 합니다.", "실제 사용 조건 기반 평가로 리스크를 줄이고 수명을 최적화할 수 있습니다."], highlights: ["용도별 기준 수립", "열처리 후 안정성 확인", "수명 최적화"] },
+    },
+  },
+]
+
+export function getLocalizedNews(locale: Locale) {
+  return newsItems.map((item) => ({
+    slug: item.slug,
+    image: item.image,
+    date: item.date,
+    ...item.translations[locale],
+  }))
+}
+
+export function getLocalizedNewsBySlug(locale: Locale, slug: string) {
+  const found = newsItems.find((item) => item.slug === slug)
+  if (!found) return undefined
+  return {
+    slug: found.slug,
+    image: found.image,
+    date: found.date,
+    ...found.translations[locale],
+  }
+}

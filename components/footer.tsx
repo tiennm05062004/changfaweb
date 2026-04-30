@@ -14,6 +14,8 @@ const footerLabels: Record<Locale, {
   about: string
   products: string
   services: string
+  news: string
+  careers: string
   contact: string
   productTitle: string
   contactTitle: string
@@ -32,6 +34,8 @@ const footerLabels: Record<Locale, {
     about: "Giới Thiệu",
     products: "Sản Phẩm",
     services: "Dịch Vụ",
+    news: "Tin tức",
+    careers: "Tuyển dụng",
     contact: "Liên Hệ",
     productTitle: "Sản Phẩm",
     contactTitle: "Liên Hệ",
@@ -50,6 +54,8 @@ const footerLabels: Record<Locale, {
     about: "About",
     products: "Products",
     services: "Services",
+    news: "News",
+    careers: "Careers",
     contact: "Contact",
     productTitle: "Products",
     contactTitle: "Contact",
@@ -68,6 +74,8 @@ const footerLabels: Record<Locale, {
     about: "关于我们",
     products: "产品",
     services: "服务",
+    news: "新闻",
+    careers: "招聘",
     contact: "联系我们",
     productTitle: "产品",
     contactTitle: "联系我们",
@@ -86,6 +94,8 @@ const footerLabels: Record<Locale, {
     about: "会社概要",
     products: "製品",
     services: "サービス",
+    news: "ニュース",
+    careers: "採用",
     contact: "お問い合わせ",
     productTitle: "製品",
     contactTitle: "お問い合わせ",
@@ -104,6 +114,8 @@ const footerLabels: Record<Locale, {
     about: "회사소개",
     products: "제품",
     services: "서비스",
+    news: "뉴스",
+    careers: "채용",
     contact: "문의",
     productTitle: "제품",
     contactTitle: "문의",
@@ -173,6 +185,16 @@ export function Footer() {
               <li>
                 <Link href={withLocale("/dich-vu", locale)} className="text-background/80 hover:text-accent transition-colors text-sm">
                   {t.services}
+                </Link>
+              </li>
+              <li>
+                <Link href={withLocale("/tin-tuc", locale)} className="text-background/80 hover:text-accent transition-colors text-sm">
+                  {t.news}
+                </Link>
+              </li>
+              <li>
+                <Link href={withLocale("/tuyen-dung", locale)} className="text-background/80 hover:text-accent transition-colors text-sm">
+                  {t.careers}
                 </Link>
               </li>
               <li>

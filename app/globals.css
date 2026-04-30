@@ -125,6 +125,36 @@
 }
 
 @layer components {
+  .contact-shake {
+    animation: contact-shake 1.8s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  @keyframes contact-shake {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    10% {
+      transform: rotate(-12deg);
+    }
+    20% {
+      transform: rotate(10deg);
+    }
+    30% {
+      transform: rotate(-8deg);
+    }
+    40% {
+      transform: rotate(6deg);
+    }
+    50% {
+      transform: rotate(-4deg);
+    }
+    60% {
+      transform: rotate(0deg);
+    }
+  }
+
   .product-hover-card {
     transform: translateY(0) scale(1);
     transition:
@@ -155,11 +185,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .contact-shake,
   .product-hover-card,
   [data-reveal] {
     transition: none !important;
     transform: none !important;
     opacity: 1 !important;
+    animation: none !important;
   }
 }
 

@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { LocaleProvider } from "@/components/locale-provider"
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { FloatingContactButtons } from "@/components/floating-contact-buttons"
 import './globals.css'
 
 const inter = Inter({ 
@@ -36,6 +37,7 @@ export default function RootLayout({
         <LocaleProvider>
           <ScrollReveal />
           {children}
+          <FloatingContactButtons />
           <Analytics />
         </LocaleProvider>
       </body>

@@ -39,7 +39,7 @@ export function ProductDetailClient({ slug }: { slug: string }) {
   return (
     <main className="min-h-screen">
       <Header />
-      <section className="pt-28 pb-4 bg-secondary/30">
+      <section className="pt-36 pb-4 bg-secondary/30">
         <div className="container mx-auto px-4">
           <nav className="flex items-center gap-2 text-sm text-muted-foreground">
             <Link href="/" className="hover:text-primary transition-colors">{t.home}</Link>

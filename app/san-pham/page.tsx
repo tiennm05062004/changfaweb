@@ -105,7 +105,7 @@ export default function ProductsPage() {
       <Header />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-primary text-primary-foreground relative overflow-hidden">
+      <section className="pt-40 pb-16 bg-primary text-primary-foreground relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <Image
             src="/images/steel-products.jpg"
